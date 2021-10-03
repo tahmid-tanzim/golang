@@ -7,7 +7,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
-	// "math"
+	"time"
 )
 
 const MAX_SIZE int = 100
@@ -62,6 +62,10 @@ func main() {
   circleRadius := 15.5
   circumference := circleRadius * 2 * math.Pi
   fmt.Printf("Circumference - %.2f\n", circumference)
+
+  // 6. Work with dates and times
+  n := time.Now()
+  fmt.Println("Date & Time - ", n.Format(time.ANSIC))
 
   sum := 0
   for i := 0; i < 10; i++ {
