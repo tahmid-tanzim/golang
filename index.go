@@ -67,6 +67,12 @@ func main() {
   n := time.Now()
   fmt.Println("Date & Time - ", n.Format(time.ANSIC))
 
+  // 7. How memory is allocated & managed
+  student := make(map[string]int)
+  student["history"] = 35
+  student["biology"] = 75
+  fmt.Println("Student -", student)
+
   sum := 0
   for i := 0; i < 10; i++ {
     sum += i
