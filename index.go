@@ -73,6 +73,13 @@ func main() {
   student["biology"] = 75
   fmt.Println("Student -", student)
 
+  // 8. Reference values with pointers
+  var d int = 42
+  var pointer *int = &d
+  fmt.Println("Before value & pointer - ", d, *pointer)
+  *pointer = 31
+  fmt.Println("After value & pointer - ", d, *pointer)
+
   sum := 0
   for i := 0; i < 10; i++ {
     sum += i
