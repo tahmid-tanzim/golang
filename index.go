@@ -13,6 +13,10 @@ import (
 )
 
 const MAX_SIZE int = 100
+type Dog struct {
+  Breed string
+  Weight int
+}
 
 func main() {
 	fmt.Println(strings.ToUpper("Hello World from Go!"))
@@ -118,11 +122,18 @@ func main() {
 	states["BC"] = "British Columbia"
 	states["ON"] = "Ontario"
 	states["SK"] = "Saskatchwan"
-  for key, val := range states {
-    fmt.Printf("%v: %v\n", key, val)
-  }
+	for key, val := range states {
+		fmt.Printf("%v: %v\n", key, val)
+	}
 	delete(states, "SK")
 	fmt.Println(states)
+
+	// 12. Group related values in structs
+  poodle := Dog{"Poodle", 12}
+  fmt.Println(poodle)
+  fmt.Printf("%+v\n", poodle)
+  poodle.Weight += 1
+  fmt.Printf("Breed:%v Weight:%v\n", poodle.Breed, poodle.Weight)
 
 	sum := 0
 	for i := 0; i < 10; i++ {
