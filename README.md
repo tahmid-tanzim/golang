@@ -1,4 +1,5 @@
 # The Go Programming Language
+https://www.linkedin.com/learning/learning-go-8399317
 
 ### Install Go on macOS
 [https://golang.org/dl/](https://golang.org/dl/)

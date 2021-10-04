@@ -5,9 +5,11 @@ import (
 	"fmt"
 	"math"
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
+	// "sort"
 )
 
 const MAX_SIZE int = 100
@@ -79,6 +81,36 @@ func main() {
   fmt.Println("Before value & pointer - ", d, *pointer)
   *pointer = 31
   fmt.Println("After value & pointer - ", d, *pointer)
+
+  // 9. Store ordered values in arrays
+  var colors [3]string;
+  colors[0] = "Red"
+  colors[1] = "Green"
+  colors[2] = "Blue"
+  fmt.Println(colors)
+
+  var numbers = [3]int{105, 425};
+  fmt.Println(numbers, len(numbers))
+
+  // 10. Manage ordered values in slices
+  var colours = []string{"Red", "Green", "Blue"};
+  colours = append(colours, "White")
+  fmt.Println(colours)
+
+  // Remove 1st & last item from slice
+  colours = append(colours[1:len(colours) - 1])
+  fmt.Println(colours)
+
+  numbersSlice := make([]int, 5)
+  numbersSlice[0] = 32
+  numbersSlice[1] = 43
+  numbersSlice[2] = 76
+  numbersSlice[3] = 21
+  numbersSlice[4] = 87
+  numbersSlice = append(numbersSlice, 13)
+  fmt.Println("Before sort -", numbersSlice)
+  sort.Ints(numbersSlice)
+  fmt.Println("After sort -", numbersSlice)
 
   sum := 0
   for i := 0; i < 10; i++ {
