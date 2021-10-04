@@ -3,6 +3,8 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io"
+	"io/ioutil"
 	"math"
 	"math/rand"
 	"os"
@@ -10,7 +12,6 @@ import (
 	"strconv"
 	"strings"
 	"time"
-	// "sort"
 )
 
 const MAX_SIZE int = 100
@@ -50,6 +51,7 @@ func main() {
 	validConvertedData, err := strconv.ParseFloat(strings.TrimSpace(floatString), 64)
 	if err != nil {
 		fmt.Println(err)
+    // panic(err)
 	} else {
 		fmt.Println("String to Float - ", validConvertedData)
 	}
@@ -140,7 +142,7 @@ func main() {
   poodle.Weight += 1
   fmt.Printf("Breed:%v Weight:%v\n", poodle.Breed, poodle.Weight)
   poodle.toString()
-  
+
   // 13. Program conditional logic 
   var e int = 3
   var result string
@@ -177,4 +179,24 @@ func main() {
 		sum += i
 	}
 	fmt.Println(sum)
+
+  // 16. Write and Read local text files
+  file, err := os.Create("./hello.txt")
+  checkError(err)
+  length, err := io.WriteString(file, fullName)
+  fmt.Printf("Total characters %v\n", length)
+  defer file.Close()
+  defer readFile("./hello.txt")
+}
+
+func checkError(err error) {
+  if err != nil {
+    panic(err)
+  }
+}
+
+func readFile(fileName string) {
+  data, err := ioutil.ReadFile(fileName)
+  checkError(err)
+  fmt.Println("File content -", string(data))
 }
