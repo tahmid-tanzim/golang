@@ -26,6 +26,18 @@ func (d Dog) toString() {
 	fmt.Println("My Breed is", d.Breed)
 }
 
+func checkError(err error) {
+	if err != nil {
+		panic(err)
+	}
+}
+
+func readFile(fileName string) {
+	data, err := ioutil.ReadFile(fileName)
+	checkError(err)
+	fmt.Println("File content -", string(data))
+}
+
 const URL = "https://gorest.co.in/public/v1/users"
 
 func main() {
@@ -196,21 +208,10 @@ func main() {
 	res, err := http.Get(URL)
 	checkError(err)
 	fmt.Printf("Response Type - %T\n", res)
-  defer res.Body.Close()
+	defer res.Body.Close()
 
-  bytes, err := ioutil.ReadAll(res.Body)
-  checkError(err)
-  fmt.Printf("Response Body - %v\n", string(bytes))
-}
-
-func checkError(err error) {
-	if err != nil {
-		panic(err)
-	}
-}
-
-func readFile(fileName string) {
-	data, err := ioutil.ReadFile(fileName)
+	bytes, err := ioutil.ReadAll(res.Body)
 	checkError(err)
-	fmt.Println("File content -", string(data))
+	responseBody := string(bytes)
+	fmt.Printf("Response Body - %v\n", responseBody)
 }
