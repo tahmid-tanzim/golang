@@ -19,6 +19,10 @@ type Dog struct {
   Weight int
 }
 
+func (d Dog) toString() {
+  fmt.Println("My Breed is", d.Breed)
+}
+
 func main() {
 	fmt.Println(strings.ToUpper("Hello World from Go!"))
 
@@ -135,7 +139,8 @@ func main() {
   fmt.Printf("%+v\n", poodle)
   poodle.Weight += 1
   fmt.Printf("Breed:%v Weight:%v\n", poodle.Breed, poodle.Weight)
-
+  poodle.toString()
+  
   // 13. Program conditional logic 
   var e int = 3
   var result string
@@ -166,6 +171,7 @@ func main() {
   }
   fmt.Println(result)
 
+  // 15. Create loops with for statements
 	sum := 0
 	for i := 0; i < 10; i++ {
 		sum += i
