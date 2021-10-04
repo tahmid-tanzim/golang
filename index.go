@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"math"
+	"math/rand"
 	"os"
 	"sort"
 	"strconv"
@@ -144,6 +145,24 @@ func main() {
     result = "Less than Zero"
   } else {
     result = "Equal to Zero"
+  }
+  fmt.Println(result)
+
+  // 14. Evaluate expressions with switch statements
+  rand.Seed(time.Now().Unix())
+  dow := rand.Intn(7) + 1
+  fmt.Println("Day", dow)
+  switch dow {
+  case 1:
+    result = "Sunday"
+  case 2:
+    result = "Monday"
+  case 3:
+    fallthrough
+  case 4:
+    result = "Tuesday & Wednesday"
+  default:
+    result = "Some other day"
   }
   fmt.Println(result)
 
