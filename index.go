@@ -135,6 +135,18 @@ func main() {
   poodle.Weight += 1
   fmt.Printf("Breed:%v Weight:%v\n", poodle.Breed, poodle.Weight)
 
+  // 13. Program conditional logic 
+  var e int = 3
+  var result string
+  if e > 0 {
+    result = "Greater than Zero"
+  } else if e < 0 {
+    result = "Less than Zero"
+  } else {
+    result = "Equal to Zero"
+  }
+  fmt.Println(result)
+
 	sum := 0
 	for i := 0; i < 10; i++ {
 		sum += i
