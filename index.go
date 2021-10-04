@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"math"
 	"math/rand"
+	"net/http"
 	"os"
 	"sort"
 	"strconv"
@@ -15,14 +16,17 @@ import (
 )
 
 const MAX_SIZE int = 100
+
 type Dog struct {
-  Breed string
-  Weight int
+	Breed  string
+	Weight int
 }
 
 func (d Dog) toString() {
-  fmt.Println("My Breed is", d.Breed)
+	fmt.Println("My Breed is", d.Breed)
 }
+
+const URL = "https://gorest.co.in/public/v1/users"
 
 func main() {
 	fmt.Println(strings.ToUpper("Hello World from Go!"))
@@ -51,7 +55,7 @@ func main() {
 	validConvertedData, err := strconv.ParseFloat(strings.TrimSpace(floatString), 64)
 	if err != nil {
 		fmt.Println(err)
-    // panic(err)
+		// panic(err)
 	} else {
 		fmt.Println("String to Float - ", validConvertedData)
 	}
@@ -136,67 +140,77 @@ func main() {
 	fmt.Println(states)
 
 	// 12. Group related values in structs
-  poodle := Dog{"Poodle", 12}
-  fmt.Println(poodle)
-  fmt.Printf("%+v\n", poodle)
-  poodle.Weight += 1
-  fmt.Printf("Breed:%v Weight:%v\n", poodle.Breed, poodle.Weight)
-  poodle.toString()
+	poodle := Dog{"Poodle", 12}
+	fmt.Println(poodle)
+	fmt.Printf("%+v\n", poodle)
+	poodle.Weight += 1
+	fmt.Printf("Breed:%v Weight:%v\n", poodle.Breed, poodle.Weight)
+	poodle.toString()
 
-  // 13. Program conditional logic 
-  var e int = 3
-  var result string
-  if e > 0 {
-    result = "Greater than Zero"
-  } else if e < 0 {
-    result = "Less than Zero"
-  } else {
-    result = "Equal to Zero"
-  }
-  fmt.Println(result)
+	// 13. Program conditional logic
+	var e int = 3
+	var result string
+	if e > 0 {
+		result = "Greater than Zero"
+	} else if e < 0 {
+		result = "Less than Zero"
+	} else {
+		result = "Equal to Zero"
+	}
+	fmt.Println(result)
 
-  // 14. Evaluate expressions with switch statements
-  rand.Seed(time.Now().Unix())
-  dow := rand.Intn(7) + 1
-  fmt.Println("Day", dow)
-  switch dow {
-  case 1:
-    result = "Sunday"
-  case 2:
-    result = "Monday"
-  case 3:
-    fallthrough
-  case 4:
-    result = "Tuesday & Wednesday"
-  default:
-    result = "Some other day"
-  }
-  fmt.Println(result)
+	// 14. Evaluate expressions with switch statements
+	rand.Seed(time.Now().Unix())
+	dow := rand.Intn(7) + 1
+	fmt.Println("Day", dow)
+	switch dow {
+	case 1:
+		result = "Sunday"
+	case 2:
+		result = "Monday"
+	case 3:
+		fallthrough
+	case 4:
+		result = "Tuesday & Wednesday"
+	default:
+		result = "Some other day"
+	}
+	fmt.Println(result)
 
-  // 15. Create loops with for statements
+	// 15. Create loops with for statements
 	sum := 0
 	for i := 0; i < 10; i++ {
 		sum += i
 	}
 	fmt.Println(sum)
 
-  // 16. Write and Read local text files
-  file, err := os.Create("./hello.txt")
+	// 16. Write and Read local text files
+	file, err := os.Create("./hello.txt")
+	checkError(err)
+	length, err := io.WriteString(file, fullName)
+	fmt.Printf("Total characters %v\n", length)
+	defer file.Close()
+	// defer readFile("./hello.txt")
+
+	// 17. Read file from Web
+	res, err := http.Get(URL)
+	checkError(err)
+	fmt.Printf("Response Type - %T\n", res)
+  defer res.Body.Close()
+
+  bytes, err := ioutil.ReadAll(res.Body)
   checkError(err)
-  length, err := io.WriteString(file, fullName)
-  fmt.Printf("Total characters %v\n", length)
-  defer file.Close()
-  defer readFile("./hello.txt")
+  fmt.Printf("Response Body - %v\n", string(bytes))
 }
 
 func checkError(err error) {
-  if err != nil {
-    panic(err)
-  }
+	if err != nil {
+		panic(err)
+	}
 }
 
 func readFile(fileName string) {
-  data, err := ioutil.ReadFile(fileName)
-  checkError(err)
-  fmt.Println("File content -", string(data))
+	data, err := ioutil.ReadFile(fileName)
+	checkError(err)
+	fmt.Println("File content -", string(data))
 }
