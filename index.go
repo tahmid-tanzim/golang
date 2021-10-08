@@ -9,6 +9,7 @@ import (
 	"math/rand"
 	"net/http"
 	"os"
+	"rsc.io/quote"
 	"sort"
 	"strconv"
 	"strings"
@@ -202,7 +203,7 @@ func main() {
 	length, err := io.WriteString(file, fullName)
 	fmt.Printf("Total characters %v\n", length)
 	defer file.Close()
-	// defer readFile("./hello.txt")
+	defer readFile("./hello.txt")
 
 	// 17. Read file from Web
 	res, err := http.Get(URL)
@@ -214,4 +215,5 @@ func main() {
 	checkError(err)
 	responseBody := string(bytes)
 	fmt.Printf("Response Body - %v\n", responseBody)
+	fmt.Println(quote.Go())
 }
