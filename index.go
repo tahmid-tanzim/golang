@@ -9,7 +9,6 @@ import (
 	"math/rand"
 	"net/http"
 	"os"
-	"rsc.io/quote"
 	"sort"
 	"strconv"
 	"strings"
@@ -215,5 +214,4 @@ func main() {
 	checkError(err)
 	responseBody := string(bytes)
 	fmt.Printf("Response Body - %v\n", responseBody)
-	fmt.Println(quote.Go())
 }
