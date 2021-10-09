@@ -1,8 +1,9 @@
 package main
 
 import (
-    "net/http"
-    "github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin"
+	"net/http"
+	"strconv"
 )
 
 type album struct {
@@ -19,23 +20,41 @@ var albums = []album{
 }
 
 func getAlbums(c *gin.Context) {
-    c.IndentedJSON(http.StatusOK, albums)
+	c.IndentedJSON(http.StatusOK, albums)
 }
 
 func postAlbums(c *gin.Context) {
-    var newAlbum album
+	var newAlbum album
 	err := c.BindJSON(&newAlbum)
-    if err != nil {
-        return
-    }
+	if err != nil {
+		return
+	}
 
-    albums = append(albums, newAlbum)
-    c.IndentedJSON(http.StatusCreated, newAlbum)
+	albums = append(albums, newAlbum)
+	c.IndentedJSON(http.StatusCreated, newAlbum)
+}
+
+func getAlbumByID(c *gin.Context) {
+	strId := c.Param("id")
+	id16, err := strconv.ParseInt(strId, 10, 16)
+	if err != nil {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "Invalid album ID"})
+		return
+	}
+	id := uint16(id16)
+	for _, a := range albums {
+		if a.ID == id {
+			c.IndentedJSON(http.StatusOK, a)
+			return
+		}
+	}
+	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "album not found"})
 }
 
 func main() {
-    router := gin.Default()
-    router.GET("/albums", getAlbums)
-    router.POST("/albums", postAlbums)
-    router.Run("localhost:8080")
+	router := gin.Default()
+	router.GET("/albums", getAlbums)
+	router.GET("/albums/:id", getAlbumByID)
+	router.POST("/albums", postAlbums)
+	router.Run("localhost:8080")
 }
